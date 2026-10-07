@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roster Optimizer case study | Thomas Bustos Millon</title>
+<meta name="description" content="How Thomas Bustos Millon wrote the rules for a fair roster and built the tool Mundrabilla Roadhouse uses each week.">
+<meta property="og:title" content="Roster Optimizer case study | Thomas Bustos Millon">
+<meta property="og:description" content="How Thomas Bustos Millon wrote the rules for a fair roster and built the tool Mundrabilla Roadhouse uses each week.">
+<meta property="og:type" content="website">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head"><div class="wrap">
+  <a class="brand" href="index.html">Thomas Bustos Millon</a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="index.html#work" aria-current="page">Work</a>
+    <a href="index.html#results">Results</a>
+    <a href="earlier-work.html">Earlier work</a>
+    <a href="resume.html">Resume</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+</div></header>
+<main id="main">
+<div class="wrap">
+  <header class="case-head">
+    <a class="back" href="index.html#work">All work</a>
+    <h1>A roster tool that replaced a weekly manual job</h1>
+    <p class="lede">Mundrabilla Roadhouse rebuilt its staff roster by hand every week. I wrote the rules for a fair roster and built a tool that generates one. The roadhouse manager now runs it herself.</p>
+    <div class="actions">
+      <a class="btn btn-solid" href="https://thomybm.github.io/Mundrabilla-Roster-App/">Open the live app</a>
+      <a class="btn" href="https://github.com/thomybm/Mundrabilla-Roster-App">View the code</a>
+    </div>
+    <dl class="meta">
+      <div><dt>My part</dt><dd>Rules, build, deployment, documentation</dd></div>
+      <div><dt>For</dt><dd>Mundrabilla Roadhouse, WA</dd></div>
+      <div><dt>When</dt><dd>July 2026, in use since</dd></div>
+      <div><dt>Tools</dt><dd>Claude, JavaScript, GitHub Pages</dd></div>
+    </dl>
+  </header>
+
+  <section class="block block-wide">
+    <figure>
+      <div class="shot"><img src="assets/img/roster-week.jpg" alt="A generated weekly roster: kitchen, shop, float, housekeeping and day off rows across Wednesday to Tuesday, with buttons to generate, swap days, undo, lock, print and export to Excel" width="1500" height="838"></div>
+      <figcaption>A generated week. The names in the live app are example data.</figcaption>
+    </figure>
+  </section>
+
+  <section class="block">
+    <div class="block-main">
+      <h2>Context</h2>
+      <p>Mundrabilla is a roadhouse on the Nullarbor Plain, 66 km from the border between Western Australia and South Australia. A small team covers the kitchen, the shop and housekeeping across morning and night shifts, seven days a week.</p>
+      <p>I worked there on site in 2025 and now look after its marketing, so I knew the roster from the inside.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-main">
+      <h2>Challenge</h2>
+      <p>The roster was rebuilt from scratch each week, around who was available and what the roadhouse needed. Weekend shifts pay more, so who works them and who gets weekends off matters to the team. There was no budget for rostering software.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-main">
+      <h2>Approach</h2>
+      <p>The useful work was deciding what a fair roster means at Mundrabilla and writing it down as rules a program could follow.</p>
+      <ul>
+        <li>Saturday and Sunday days off are tracked separately, because Sunday pays more than Saturday.</li>
+        <li>Nobody gets both weekend days off in the same week. A ten-week history keeps the rotation fair over time.</li>
+        <li>Morning shifts go before a day off and night shifts after it, so each day off gives the longest rest.</li>
+        <li>People are only rostered into roles they are qualified for. Holidays and unavailable dates are blocked.</li>
+        <li>Hours and earnings are balanced across the team.</li>
+      </ul>
+      <p>I built it with Claude as the coding partner. I set the rules and the trade-offs, tested each version and reported what was wrong. Claude wrote the JavaScript.</p>
+    </div>
+    <aside class="note">
+      <p><strong>How it was built.</strong> 15 versions published between 6 July and 4 October 2026.</p>
+      <p>Fixes along the way included a time zone error in the date calculation and an Excel export that failed without warning.</p>
+    </aside>
+  </section>
+
+  <section class="block">
+    <div class="block-main">
+      <h2>Build</h2>
+      <p>A web app that works offline and installs on a phone or laptop. The roster data stays on the device.</p>
+      <ul>
+        <li><strong>Generate.</strong> The app builds many candidate rosters, scores each one against the rules and keeps the best.</li>
+        <li><strong>Check.</strong> A fairness dashboard shows a quality score out of 100, plus hours, earnings and weekend shifts per person.</li>
+        <li><strong>Adjust.</strong> Edit any shift by hand, swap two days, undo up to 20 steps, then lock the roster once it is posted.</li>
+        <li><strong>Pay.</strong> Rates by day of the week, with overrides for public holidays.</li>
+        <li><strong>Share.</strong> Export to Excel or print an A4 poster for the wall.</li>
+      </ul>
+      <p>It is about 3,000 lines of JavaScript, HTML and CSS. No AI runs inside the app. It follows the rules it was given.</p>
+    </div>
+    <aside class="note">
+      <p><strong>Under the hood.</strong> A scheduling engine that builds rosters with a randomised first pass, improves them by swapping shifts, and scores every result against weighted rules.</p>
+    </aside>
+  </section>
+
+  <section class="block block-wide">
+    <div class="block-main">
+      <h2>Evidence</h2>
+      <figure>
+        <div class="shot"><img src="assets/img/roster-dashboard.jpg" alt="Fairness dashboard with a roster quality score of 88 out of 100 and bars for hours worked, earnings balance, Saturday shifts and Sunday shifts per person" width="1500" height="949" loading="lazy"></div>
+        <figcaption>The fairness dashboard for the same week. Example data.</figcaption>
+      </figure>
+      <p><a href="https://thomybm.github.io/Mundrabilla-Roster-App/">Open the live app</a> to generate a roster yourself, or <a href="https://github.com/thomybm/Mundrabilla-Roster-App">read the source code</a>.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-main">
+      <h2>Results</h2>
+      <p>The tool replaced manual rostering and saves about 3 hours a week, by the roadhouse's own estimate. It is still in weekly use.</p>
+      <p>It is one of five process changes I worked on with management that together save about 10 hours a week.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-main">
+      <h2>What I learned</h2>
+      <p>Most of the work was turning the idea of a fair roster into rules precise enough to test. Each bug I found was a rule I had not stated clearly enough. I now write the rules first for any process I want to automate, in marketing as much as in operations.</p>
+    </div>
+  </section>
+</div>
+</main>
+<footer class="site-foot"><div class="wrap">
+  <p class="small">Thomas Bustos Millon, Perth, WA. Every figure on this site names its source. Built with Claude as a coding partner.</p>
+</div></footer>
+<script src="assets/site.js"></script>
+</body>
+</html>
